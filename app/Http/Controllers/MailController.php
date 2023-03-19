@@ -20,6 +20,7 @@ use App\Models\BcmOrder;
 use App\Models\BcmOrderItems;
 use App\Models\Supplier;
 use App\Models\Shipping;
+use App\Models\Courier;
 use App\Repositories\ManagementPortal\AllOrderRepository;
 use Exception;
 use Illuminate\Http\Request;
@@ -142,8 +143,15 @@ class MailController extends Controller
         $trackingData = array();
         for($i=0; $i<(count($tracking_id)); $i++){
             $data = Shipping::where('id' , $tracking_id[$i])->first()->toArray();
+            $link = Courier::where('id', $data['courier_company'])->pluck('link');
+            $data['link'] = $link[0];
             array_push($trackingData,$data);
+           
         }
+  
+       
+
+        
         if(count($orderData)) return view('admin.mail.emailTracking',['orderData' => $orderData[0] , 'trackingData' => $trackingData]);
         return redirect(route('fetchAllOrders'))->with(['error','Can\'t find such a page. Please try again']);
 
@@ -156,39 +164,44 @@ class MailController extends Controller
         $tracking=[];
         // $keys=[];
         $values=[];
+        $comments="";
+        
         
         foreach($data as $key => $dataItem){
-             if ($dataItem){
-                 if($key=="_token") continue;
-                //  array_push($keys,$key);
-                 array_push($values,$dataItem);
-                //  $tracking[$key] = $dataItem;
-                 continue;
-
-             }
-             break;
+            if ($dataItem){
+                if($key=="_token") continue;
+                if($key == "Comments"){
+                    $comments = $dataItem;
+                    continue;
+                }
+                array_push($values,$dataItem);
+                continue;
+            }
+            break;
         }
-       // dd($values);
-        
+     ;
+     
+      
         // if(count($values)%2!=0) return back()->with('error','You didn\'t enter enough fields. Please try again');
         // for( $i=0; $i<(count($values)-1);$i+=2){
 
         //       $tracking[$values[$i]]=$values[$i+1];
         // }
         for( $i=0; $i<(count($values)-1);$i+=3){
-          array_push($tracking,[$values[$i],$values[$i+1],$values[$i+2]]);
+          array_push($tracking,[$orderNumber,$values[$i],$values[$i+1],$values[$i+2]]);
               
         }
         
 
-        //  dd($tracking);
-        // dd($tracking);
+      
+
 
         $order= BcmOrder::where('order_number', intval($orderNumber))->first();
-
+  
         try{
 
-            Mail::mailer('maillingCustomer')->to('info@bettercaremarket.com.au')->send(new sendTrackingMail($tracking,$order));
+            // Mail::mailer('maillingCustomer')->to('info@bettercaremarket.com.au')->send(new sendTrackingMail($tracking,$order));
+            Mail::mailer('maillingCustomer')->to($order->customer_email)->send(new sendTrackingMail($tracking,$order,$comments));
 
         } catch(Exception $e){
             return back()->with('error',$e->getMessage().'Failed to send email to customer. Please try again');

@@ -17,6 +17,7 @@ use App\Models\Ticketing;
 use App\Models\BcmOrder;
 use App\Models\Comment;
 use App\Models\Supplier;
+use App\Models\Courier;
 
 use Exception;
 use Illuminate\Support\Facades\Config;
@@ -471,6 +472,8 @@ class AllOrderController extends Controller
         $requestData = $request->all();
         $supName = Supplier::select('supplier_name')->where('supplier_id' , $requestData['SupplierId'][0])->where('order_id', $requestData['orderId'] )->first()->toarray();
         $data = '';
+        $couriers = Courier::all();
+    
         foreach ($requestData['item_name'] as $name){
             $data .= '<div class="mb-3 ">
                         <label for="itemName" class="form-label">Item Name</label>
@@ -491,7 +494,23 @@ class AllOrderController extends Controller
                  value="'.$supName['supplier_name'].'">
         </div>';
         
-        
+      
+        $options = '';
+        foreach ($couriers as $courier) {
+            $options .= '<option value="' . $courier->id . '">' . $courier->name . '</option>';
+        }
+    
+    
+    $data .= '<div class="mb-3">
+                  <label for="courierCompany" class="form-label">Courier Company</label>
+                  <i class="text-red-400 pt-1">&#42;</i>
+                  <select class="form-control" id="courierCompany" name="courierCompany" required>
+                   
+                      ' . $options . '
+                  </select>
+              </div>';
+           
+         
         return $data;
      }
 
@@ -524,6 +543,8 @@ class AllOrderController extends Controller
      *
      */
     public function editOrderTracking(Request $request, $id = '') {
+        $couriers = Courier::all();
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $this->order->editOrderTracking($request->all());
             if ($data) {
@@ -536,8 +557,31 @@ class AllOrderController extends Controller
         if (!$orderTrackingData) {
             return redirect(route('getOrders'));
         }
+    
+
+        
+        $options = '';
+        $courierList='';
+
+        foreach ($couriers as $courier) {
+       $selected = ($courier->id == $orderTrackingData->courier_company) ? 'selected' : ''; 
+   $options .= '<option value="' . $courier->id . '" ' . $selected . '>' . $courier->name . '</option>';
+        }
+    
+    
+    $courierList .= '<div class="mb-3">
+                  <label for="courierCompany" class="form-label">Courier Company</label>
+                  <i class="text-red-400 pt-1">&#42;</i>
+                  <select class="form-control" id="courier_company" name="courier_company" required>
+                   
+                      ' . $options . '
+                  </select>
+              </div>';
+              $orderTrackingData->couriersList = $courierList;
+           
         return View('admin.order.allOrder.edit_tracking')->with('orderTracking',$orderTrackingData);
     }
+
 
 
 

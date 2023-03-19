@@ -29,7 +29,7 @@
                         <form action="{{ route('emailTrackingInfo', ['orderNumber' => $orderData['order_number']]) }}"
                             method="POST">
                             @csrf
-                            <input type="hidden" name="order_number" value="{{ $orderData['order_number'] }}">
+                            {{-- <input type="hidden" name="order_number" value="{{ $orderData['order_number'] }}"> --}}
                             <h5 class="pb-3"> Hey {{ $orderData['customer_first_name'] }},</h5>
 
                             <div class="leading-7 text-base form-group">
@@ -52,20 +52,24 @@
                                     </thead>
                                     <tbody>
 
-                                        @foreach ($trackingData as $data)
+                                        @foreach ($trackingData as $key => $data)
                                             <tr>
 
                                                 <td><input type="text" placeholder="enter name"
                                                         value="{{ $data['item_name'] }}" style="color:black; width: 375px;"
-                                                        class="h-7 rounded" name="product1" id="product1" required><i
+                                                        class="h-7 rounded" name="product{{ $key + 1 }}"
+                                                        id="product{{ $key + 1 }}" required><i
                                                         class="text-red-400 pt-2">&#42;</i></td>
                                                 <td><input type="text" placeholder="enter code"
                                                         value="{{ $data['tracking_number'] }}" style="color:black"
-                                                        class="h-7 rounded mx-1 w-36 max-w-2xl" name="tracking1"
-                                                        id="tracking1" required><i class="text-red-400 pt-2">&#42;</i></td>
+                                                        class="h-7 rounded mx-1 w-36 max-w-2xl"
+                                                        name="tracking{{ $key + 1 }}" id="tracking{{ $key + 1 }}"
+                                                        required><i class="text-red-400 pt-2">&#42;</i></td>
                                                 <td><input type="text" placeholder="enter link" style="color:black"
-                                                        class="h-7 rounded mx-1 w-36 max-w-2xl" name="link1"
-                                                        id="link1" value=""></td>
+                                                        class="h-7 rounded mx-1 w-36 max-w-2xl"
+                                                        name="link{{ $key + 1 }}" id="link{{ $key + 1 }}"
+                                                        value="{{ $data['link'] }}{{ $data['tracking_number'] }}">
+                                                </td>
                                             </tr>
                                         @endforeach
 
@@ -83,6 +87,8 @@
                                 <p>
                                     Click on the tracking number to check the progress through .
                                 </p>
+                                <textarea id="Comments" name="Comments" rows="4" cols="50">
+                                </textarea>
                                 <p>Please don't hesitate to contact us if you have any queries, or if you would like a
                                     further update. </p>
 

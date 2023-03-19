@@ -19,11 +19,13 @@ class sendTrackingMail extends Mailable
      */
     public $tracking;
     public $order;
-    public function __construct($tracking,$order)
+    public $comments;
+    public function __construct($tracking,$order,$comments)
     {
         //
         $this->tracking = $tracking;
         $this->order = $order;
+        $this->comments = $comments;
     }
 
     /**
@@ -37,6 +39,8 @@ class sendTrackingMail extends Mailable
         $input=$request->all();
         $subject='Bettercaremarket order '.$this->order->toArray()['order_number'].' – Dispatch Upate';
         // config('mail.mailers.test.username');
+    //    dd($this->tracking);
+        
         return $this->from(config('mail.mailers.maillingCustomer.username'), 'BettercareMarket')->subject($subject)->markdown('mail.emailTrackingTemplate');
         
     }

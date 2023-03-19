@@ -6,20 +6,22 @@ We are pleased to inform you that the following product(s) are currently being p
 
 
 @component('mail::table')
-| Product | Tracking number |
-| :--------- | :------------- |
+| Order Number|Product Name | Tracking number |
+| :--------- | :------------- | :------------- |
 @foreach ($tracking as $array)
-| {{ $array[0] }} | @if ($array[2] != 'N/A')
-<a href="{{ $array[2] }}"> {{ $array[1] }} </a>
+| {{ $array[0] }} | {{ $array[1] }} | @if ($array[2] != 'N/A')
+    <a href="{{ $array[3] }}"> {{ $array[2] }} </a>
 @else
-{{ $array[1] }}
+    {{ $array[1] }}
 @endif |
 @endforeach
 @endcomponent
 
 
 Click on the tracking number to check the progress.
-
+@if($comments)
+<br>{{$comments}}<br>
+@endif
 Please don't hesitate to contact us if you have any queries, or if you would like a further update.
 
 Thank you for shopping with us!

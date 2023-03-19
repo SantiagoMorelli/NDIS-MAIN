@@ -290,7 +290,7 @@ $planManaged = false;
                                     {{-- <th> </th> --}}
                                     <th> Item Name </th>
                                     <th> Tracking id </th>
-                                    <th> Courier Company </th>
+
                                     <th> Expected Arrival Time : </th>
                                     <th> Dispatch Time </th>
                                     <th> Notes </th>
@@ -506,9 +506,7 @@ $planManaged = false;
                 {
                     data: 'tracking_number'
                 },
-                {
-                    data: 'courier_company'
-                },
+
                 {
                     data: 'expected_time_of_arrival'
                 },
@@ -895,6 +893,7 @@ $planManaged = false;
                     return $(this).attr('data');
                 }).get();
                 var supplier_id = $("input.itemcheckbox:checked").map(function() {
+
                     return $(this).attr('data-supplier-id');
                 }).get();
             }

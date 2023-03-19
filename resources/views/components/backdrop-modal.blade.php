@@ -25,7 +25,9 @@
                             <label for="orderId" class="form-label">Order Id</label>
                             <input type="text" class="form-control" id="orderId" value="{{ $orderId }}">
                         </div>
+
                         <div id="modalData"></div>
+
                         {{-- @if (isset($item_name))
 
                             @foreach ($item_name as $name)
@@ -52,11 +54,7 @@
                             <i class="text-red-400 pt-2">&#42;</i>
                             <input type="text" class="form-control" id="trackingNumber" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="courierCompany" class="form-label">Courier Company</label>
-                            <i class="text-red-400 pt-1">&#42;</i>
-                            <input type="text" class="form-control" id="courierCompany" required>
-                        </div>
+
                         <div class="mb-3">
                             <label for="eta" class="form-label">Expected to Arrive</label>
                             <input type="date" class="form-control" id="eta">

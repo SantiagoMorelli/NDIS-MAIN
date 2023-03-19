@@ -50,7 +50,7 @@ return [
             'port' => 587,
             'encryption' => 'tls',
             'username' => 'customercare@bettercaremarket.com.au',
-            'password' => ',Q5zw8=?Yq@WMtje',
+            'password' => 'BCMcc@2065',
             'timeout' => null,
             'auth_mode' => null,
         ],

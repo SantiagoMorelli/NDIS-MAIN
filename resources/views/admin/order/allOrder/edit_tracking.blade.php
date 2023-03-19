@@ -57,10 +57,8 @@ use App\Repositories\CommonRepository;
                             <div class="form-row">
                                 <!-- form grid -->
                                 <div class="col-md-12 mb-3">
-                                    <label for="courier_company">Courier Company</label> <input type="text"
-                                        class="form-control" id="courier_company" name="courier_company"
-                                        placeholder="Courier Company Name" aria-describedby="inputFirstName" required=""
-                                        value="{{ $orderTracking->courier_company }}">
+
+                                    {!! $orderTracking->couriersList !!}
                                     <div id="inputFirstName" class="invalid-feedback"> Please enter a Courier Company.
                                     </div>
                                 </div><!-- /form grid -->
