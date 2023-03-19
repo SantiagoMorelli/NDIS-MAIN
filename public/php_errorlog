@@ -1,0 +1,1 @@
+[24-May-2021 14:09:49 UTC] PHP Fatal error:  require(): Failed opening required '/home/customer/www/ndisapp.bettercaremarket.com.au/public_html/ndis-app-main/public/../vendor/autoload.php' (include_path='.:/usr/local/php73/pear') in /home/customer/www/ndisapp.bettercaremarket.com.au/public_html/ndis-app-main/public/index.php on line 34
