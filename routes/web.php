@@ -13,6 +13,7 @@ use App\Http\Controllers\ManagementPortal\OrderController;
 use App\Http\Controllers\PreOrderController;
 use App\Http\Controllers\BcmOrderController;
 use App\Http\Controllers\dummyControllerSupplier;
+use App\Http\Controllers\CourierController;
 //use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\SendEmailSupplierController;
@@ -42,6 +43,13 @@ Route::get('/', function () {
 Route::get('PreOrder',[PreOrderController::class, 'index'])->name('PreOrder');
 Route::post('/CreateInvoice', [PreOrderController::class, 'CreateInvoice']);
 //
+//Couriers
+Route::get('/couriers', [CourierController::class, 'index'])->name('couriers.index');
+Route::get('/couriers/create', [App\Http\Controllers\CourierController::class, 'create'])->name('couriers.create');
+Route::get('/couriers/{courier}/edit', [App\Http\Controllers\CourierController::class, 'edit'])->name('couriers.edit');
+Route::delete('/couriers/{courier}', [App\Http\Controllers\CourierController::class, 'destroy'])->name('couriers.destroy');
+Route::post('/couriers', [App\Http\Controllers\CourierController::class, 'store'])->name('couriers.store');
+Route::put('/couriers/{courier}', [CourierController::class, 'update'])->name('couriers.update');
 
 
 Route::get('send_mail', [SendEmailController::class, 'index']);

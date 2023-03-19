@@ -205,7 +205,12 @@
                                         "></span>
                                     <span class="menu-text">Pre-orders</span></a>
                             </li><!-- /.menu-item -->
-                            <!-- .menu-item -->
+                            <li class="menu-item">
+                                <a href="{{ route('couriers.index') }}" class="menu-link"><span
+                                        class="menu-icon oi oi-envelope-closed
+                                        "></span>
+                                    <span class="menu-text">Couriers</span></a>
+                            </li><!-- /.menu-item -->
 
                             <li class="menu-item">
                                 <a href="{{ route('logout') }}" class="menu-link"><span
