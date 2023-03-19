@@ -199,7 +199,14 @@
                                     </ul><!-- /child menu --> --}}
                                 </li><!-- /.menu-item -->
                             @endif
+                            <li class="menu-item">
+                                <a href="{{ route('PreOrder') }}" class="menu-link"><span
+                                        class="menu-icon oi oi-spreadsheet
+                                        "></span>
+                                    <span class="menu-text">Pre-orders</span></a>
+                            </li><!-- /.menu-item -->
                             <!-- .menu-item -->
+
                             <li class="menu-item">
                                 <a href="{{ route('logout') }}" class="menu-link"><span
                                         class="menu-icon oi oi-account-logout"></span> <span

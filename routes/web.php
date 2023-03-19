@@ -10,7 +10,7 @@ use App\Http\Controllers\NdisInternalApiController;
 use App\Http\Controllers\ManagementPortal\UserController;
 use App\Http\Controllers\ManagementPortal\ConfigurationController;
 use App\Http\Controllers\ManagementPortal\OrderController;
-
+use App\Http\Controllers\PreOrderController;
 use App\Http\Controllers\BcmOrderController;
 use App\Http\Controllers\dummyControllerSupplier;
 //use App\Http\Controllers\SupplierController;
@@ -38,6 +38,11 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+//updated create invoice
+Route::get('PreOrder',[PreOrderController::class, 'index'])->name('PreOrder');
+Route::post('/CreateInvoice', [PreOrderController::class, 'CreateInvoice']);
+//
+
 
 Route::get('send_mail', [SendEmailController::class, 'index']);
 Route::post('supplier', [SupplierController::class, 'show']);
